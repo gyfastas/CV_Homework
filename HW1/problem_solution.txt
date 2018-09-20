@@ -1,0 +1,5 @@
+1.如何快速有效地计算直方图？ 
+2.如何计算Cumulative histogram?
+
+np.argwhere(条件)
+np.sum(array ==i)
