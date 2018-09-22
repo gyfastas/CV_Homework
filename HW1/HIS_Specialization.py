@@ -6,7 +6,6 @@ img = cv2.imread('./image/1.jpg')
 img_2 = cv2.imread('./image/2.jpg')
 img_2 = cv2.cvtColor(img_2,cv2.COLOR_RGB2GRAY)
 img = cv2.cvtColor(img,cv2.COLOR_RGB2GRAY)
-#calculate the histogram in opencv
 
 hist = np.zeros([256,1])
 hist_2 = np.zeros([256,1])
@@ -21,10 +20,10 @@ hist_2 = hist_2/sum(hist_2)
 Cu_hist = np.cumsum(hist)
 Cu_hist_2 = np.cumsum(hist_2)
 
-#make the look up table
-I = np.zeros([256,1])
+#build the look up table
+I = np.zeros([256,2])
 for i in range(256):
-    I[i] = Cu_hist_2[np.where(Cu_hist_2-Cu_hist[i]==np.min(abs(Cu_hist_2-Cu_hist[i])))]
+    I[i] = np.min(np.argwhere(Cu_hist_2-Cu_hist[i]==np.min(abs(Cu_hist_2-Cu_hist[i]))))[0][0]
 #plot plot plot!
 
 plt.figure(1,figsize=(9,9))
