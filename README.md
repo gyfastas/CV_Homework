@@ -5,3 +5,9 @@
 ## HW1
 
 Write a small program to implement a histogram specialization algorithm
+
+
+
+### HW2
+
+Write a small program to implement Harris detector
