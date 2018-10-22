@@ -4,8 +4,8 @@ subplot(121);
 gray = rgb2gray(img);
 imshow(gray);
 %Thres hold low/high
-TL = 0.1;
-TH = 0.2;
+TL = 0.075;
+TH = 0.15;
 sigma = 1;
 %step1: Gaussian filter
 Im1 = imgaussfilt(gray,sigma);
@@ -52,12 +52,7 @@ end
 phi = is_max.*phi;
 %% step4:Thres
 Edge = zeros(size(phi,1),size(phi,2));
-phi_max = max(max(phi));
-TH = TH*phi_max;
-TL = TL*phi_max;
-%4 neibour| 8 neibour
-Nei4 = [0,1,0;1,0,1;0,1,0];
-Nei8 = [1,1,1;1,0,1;1,1,1];
+ChoseWindow = [0,1,0;1,0,1;0,1,0];
 %Thres mapping
 for i = 2:size(phi,1)-1
     for j = 2:size(phi,2)-1
@@ -66,10 +61,6 @@ for i = 2:size(phi,1)-1
         elseif phi(i,j)<TL
             Edge(i,j) = 0;
         else
-            Edge(i,j) = sum(sum(Edge(i-1:i+1,j-1:j+1).*Nei4))>0 && phi(i,j)>TL;
-        end
-    end
-end
             
 
 Edge = Edge(2:end-1,2:end-1);
