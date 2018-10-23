@@ -6,8 +6,8 @@ imshow(gray);
 %Thres hold low/high
 TL = 0.1;
 TH = 0.2;
-sigma = 1;
 %step1: Gaussian filter
+sigma = 1;
 Im1 = imgaussfilt(gray,sigma);
 
 %% step2: Get Gradient
@@ -58,21 +58,23 @@ TL = TL*phi_max;
 %4 neibour| 8 neibour
 Nei4 = [0,1,0;1,0,1;0,1,0];
 Nei8 = [1,1,1;1,0,1;1,1,1];
-%Thres mapping
+%High thres mapping
+Edge(phi>TH) = 2;
+%Low thres mapping
 for i = 2:size(phi,1)-1
     for j = 2:size(phi,2)-1
-        if phi(i,j)>TH
-            Edge(i,j) = 1;
-        elseif phi(i,j)<TL
+        if phi(i,j)<TL
             Edge(i,j) = 0;
-        else
-            Edge(i,j) = sum(sum(Edge(i-1:i+1,j-1:j+1).*Nei4))>0 && phi(i,j)>TL;
+        elseif phi(i,j)>=TL && phi(i,j)<TH
+            Edge(i,j) = sum(sum((Edge(i-1:i+1,j-1:j+1).*Nei8>2)))>0;
         end
     end
 end
             
 
 Edge = Edge(2:end-1,2:end-1);
+Edge(Edge>0) = 1;
+%Make output
 Out = Edge.*double(gray);
 Out(Out>0) = 255;
 subplot(122);
