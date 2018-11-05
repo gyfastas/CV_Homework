@@ -1,14 +1,18 @@
 %read Image and transfer into gray image
 img = imread('./image/8.jpg');
-subplot(121);
+subplot(221);
 gray = rgb2gray(img);
 imshow(gray);
+title('Original');
 %Thres hold low/high
 TL = 0.1;
 TH = 0.2;
 %step1: Gaussian filter
-sigma = 1;
+sigma = 0.5;
 Im1 = imgaussfilt(gray,sigma);
+subplot(222);
+imshow(Im1);
+title('After Gaussian');
 
 %% step2: Get Gradient
 %using Sobel 
@@ -60,13 +64,19 @@ Nei4 = [0,1,0;1,0,1;0,1,0];
 Nei8 = [1,1,1;1,0,1;1,1,1];
 %High thres mapping
 Edge(phi>TH) = 2;
+Result_strong = double(gray);
+Result_strong(Edge(2:end-1,2:end-1)>0) = 255;
+Result_strong(Edge(2:end-1,2:end-1)<=0) = 0;
+subplot(223);
+imshow(Result_strong);
+title('Strong Edge');
 %Low thres mapping
 for i = 2:size(phi,1)-1
     for j = 2:size(phi,2)-1
         if phi(i,j)<TL
             Edge(i,j) = 0;
         elseif phi(i,j)>=TL && phi(i,j)<TH
-            Edge(i,j) = sum(sum((Edge(i-1:i+1,j-1:j+1).*Nei8>2)))>0;
+            Edge(i,j) = sum(sum((Edge(i-1:i+1,j-1:j+1).*Nei8>=1)))>0;
         end
     end
 end
@@ -77,5 +87,6 @@ Edge(Edge>0) = 1;
 %Make output
 Out = Edge.*double(gray);
 Out(Out>0) = 255;
-subplot(122);
+subplot(224);
 imshow(Out);
+title('Result');

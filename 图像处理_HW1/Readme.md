@@ -75,3 +75,4 @@ for i = 2:size(phi,1)-1
 end
 ```
 
+Result is shown in Result Folder
