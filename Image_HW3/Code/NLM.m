@@ -19,25 +19,27 @@ FTInput = fft2(padInput);
 Phase = angle(FTInput);
 for x  = Soffset+1:m+Soffset
     for y = Soffset+1:n+Soffset
+        Zx = 0;
+        DisMax = 0;
+        %% Method 1 use distance between face to indicates similarity
         if Method ==1 
         Block = Phase(x-offset:x+offset,y-offset:y+offset); %Block Phase
-        Zx = 0;
+        
         for u = x-Soffset+offset+1:x+Soffset-offset
             for v = y-Soffset+offset+1:y+Soffset-offset
                 RBlock = Phase(u-offset:u+offset,v-offset:v+offset);
                 Distance = norm(Block-RBlock,2);
                 Distance = exp(-Distance./(Sigma*Sigma*2));
                 Zx = Zx+Distance;
-                padOutput(x-offset:x+offset,y-offset:y+offset) = padOutput(x-offset:x+offset,y-offset:y+offset)+Distance.*double(padInput(u-offset:u+offset,v-offset:v+offset));
+                padOutput(x,y) = padOutput(x,y)+Distance.*double(padInput(u,v));
             end
         end
-        padOutput(x-offset:x+offset,y-offset:y+offset) = padOutput(x-offset:x+offset,y-offset:y+offset)./Zx;
+        padOutput(x,y) = padOutput(x,y)./Zx;
         end
-        
+        %% Method2 use distance between (intensity-average instensity) to indicates similarity
         if Method ==2
         Block = padInput(x-offset:x+offset,y-offset:y+offset)-mean(mean(padInput)); %Block Intensity-mean
         Block = double(Block);
-        Zx = 0;
         for u = x-Soffset+offset+1:x+Soffset-offset
             for v = y-Soffset+offset+1:y+Soffset-offset
                 RBlock = padInput(u-offset:u+offset,v-offset:v+offset)-mean(mean(padInput));
@@ -45,10 +47,10 @@ for x  = Soffset+1:m+Soffset
                 Distance = norm(Block-RBlock,2);
                 Distance = exp(-Distance./(Sigma*Sigma*2));
                 Zx = Zx+Distance;
-                padOutput(x-offset:x+offset,y-offset:y+offset) = padOutput(x-offset:x+offset,y-offset:y+offset)+Distance.*double(padInput(u-offset:u+offset,v-offset:v+offset));
+                padOutput(x,y) = padOutput(x,y)+Distance.*double(padInput(u,v));
             end
         end
-        padOutput(x-offset:x+offset,y-offset:y+offset) = padOutput(x-offset:x+offset,y-offset:y+offset)./Zx;
+        padOutput(x,y) = padOutput(x,y)./Zx;
         end
     end
 end
