@@ -173,3 +173,4 @@ Image_HW3/YALE/matlab/rotate_faces.m
 Image_HW3/YALE/matlab/shift_faces.m
 Image_HW3/YALE/matlab/support_faces.m
 Image_HW3/YALE/matlab/unpad_faces.m
+*.png

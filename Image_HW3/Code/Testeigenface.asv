@@ -1,6 +1,6 @@
 %% Test On Yale Dataset
 N = 80;			%Face size
-M = 10;			%Eigen Face number
+M = 5;			%Eigen Face number
 TM = 12;        %Training set number
 %% read image
 face_mat = zeros(N*N,TM);
@@ -22,7 +22,7 @@ temp_face = imresize(temp_face,[N,N]);
 face_mat(:,12) = double(reshape(temp_face,[N*N,1]));
 
 %% read test img
-face_test = imread('../Resources/tests/subject15.sad.pgm' );
+face_test = imread('../Resources/tests/subject01.sad.pgm' );
 face_test = imresize(face_test,[N,N]);
 face_test = double(face_test);
 face_test_vec = reshape(face_test,[N*N,1]);

@@ -6,9 +6,7 @@ function [ OutImage ] = NLM( Input,BlockSize ,SearchSize,Method,Sigma,Stride)
 %Method: the description function of Block 
 %Sigma: variance of Gaussian Distance
 %Stride: Search Stride 
-if length(size(Input))==3
-    Input = rgb2gray(Input);
-end
+
 [m,n] = size(Input);
 %% Replicate the boundary of image
 offset = floor(BlockSize/2); % Block Window offset
