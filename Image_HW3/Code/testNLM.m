@@ -1,4 +1,4 @@
-%%Read Image
+%%Read Image, change the direction to use other test images
 img_in = imread('../Resources/tests/lena.png');
 
 %% part of Lena
@@ -9,7 +9,7 @@ subplot(131);
 imshow(img_in);
 [m,n] = size(img_in);
 
-%% Noise generator
+%% Noise generator  (changable)
 img_noise = imnoise(img_in,'gaussian',0.01);
 % Generate Gaussian White Noise
 

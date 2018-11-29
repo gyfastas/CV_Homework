@@ -13,7 +13,7 @@ for k = 1:10
     temp_face = imresize(temp_face,[N,N]);
     face_mat(:,k) = double(reshape(temp_face,[N*N,1]));
 end
-%% extra face
+%% extra face 
 temp_face = imread('../Resources/tests/subject01.sleepy.pgm');
 temp_face = imresize(temp_face,[N,N]);
 face_mat(:,11) = double(reshape(temp_face,[N*N,1]));

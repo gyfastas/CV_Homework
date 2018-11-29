@@ -2,6 +2,8 @@ function [Pvec,Wcols] = MYPCA(A,M)
 %my PCA functiton
 %A: differ matrix
 %M: number we want to keep
+%Pvec: Principle Vector matrix
+%Wcols: Weight matrix
 Pvec = zeros(size(A,1),M);
 [u,s,v] = svd(A,'econ');
 u = u(:,1:M);

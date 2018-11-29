@@ -6,6 +6,8 @@ function [ OutImage ] = NLM( Input,BlockSize ,SearchSize,Method,Sigma)
 % Method = 1: phase
 % Method = 2: intensity - mean(intensity)
 %Sigma: variance of Gaussian Distance
+
+%Ouput: output image (Gray)
 if length(size(Input))==3
     Input = rgb2gray(Input);
 end
