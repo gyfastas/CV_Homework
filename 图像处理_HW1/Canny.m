@@ -31,7 +31,8 @@ for i = 1:size(phi,1)
             theta(i,j) = atan(phiy(i,j)/phix(i,j))*180/pi+180;
         end
     end
-end 
+end
+ 
 %% step3: NMS
 % Make theta into section
 theta(theta>-22.5 & theta<=22.5) = 0;
