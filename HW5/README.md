@@ -96,23 +96,78 @@ Output: Rotation Matrix R (3 * 3)
 
 ​	       Sum of square error 
 
--TestDLT.m Main Program, load the data and add noise then calculate the Rotation Matrix using Gauss Newton method, Direct Linear Transform and Absolute Orientation
 
 
+-findNeibor.m: A MATLAB Function that use KNN algorithm to find the nearest neighbor of source point cloud on destination point cloud
+
+Input: Source Point Cloud X
+
+ 	    Destination Point Cloud Y
+
+Output: 
+
+​	   dis: Euclidean Distance between X and its neighbor
+
+​            index: index of Y that is nearest to X
+
+
+
+-solveTransform: A MATLAB Function that solve the transformation matrix based on gauss newton/ direct linear transform/ absolute orientation method
+
+Input: Source Point Cloud X
+
+​	    Destination Point Cloud Y
+
+​	    Method: 1->Gauss Newton 2->Direct Linear Transform 3->Absolute Orientation
+
+Output:
+
+​	    R: Rotation Matrix
+
+ 	    t: translation vector	    
 
 
 
 #### Test Program
 
-TestDLT.m:
+Main.m:
 
- To add different Noise( use MATLAB random generator:
+You can run the script directly. To modify some the loaded data, method, try as the following tutorial.
+
+ 
+
+To load your data, change the load function input as your data direction
 
 ~~~matlab
-%% Add Gaussion Noise
-noise = random('Normal',0,0.01,dimension,pointNum);
-x = x+noise;
-y = y+noise;
+%% load data
+data = load('./data/icp_xy.mat');
+X = data.x;
+Y = data.y;
+X_i = X;
+~~~
+
+To use different method to solve the transformation matrix:
+
+method = 1:Gauss Newton 2:DLT 3: Absolute Orientation
+
+~~~matlab
+    %% Step2 : Update (3 method)
+    [R,t] = solveTransform(X,Y(:,index),2);
+~~~
+
+
+
+To add some noise on input data X:
+
+~~~
+X = X + random('noiseType',noisepara...,dimension,pointNumX)
+~~~
+
+ex.:
+
+~~~matlab
+%Add Gaussian Noise (mean = 0, sigma = 0.01) on X
+X = X + random('Normal',0,0.01,dimension,pointNumX)
 ~~~
 
 

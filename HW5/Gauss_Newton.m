@@ -1,7 +1,7 @@
 function [R,error] =  Gauss_Newton(x,y,iter)
-% x:±ä»»Ç°µÄ×ø±ê
-% y:±ä»»ºóµÄ×ø±ê
-% iter:µü´ú´ÎÊı
+% x:å˜æ¢å‰çš„åæ ‡
+% y:å˜æ¢åçš„åæ ‡
+% iter:è¿­ä»£æ¬¡æ•°
 theta = zeros(3,1);
 
 %% Find min of target function
@@ -16,23 +16,23 @@ for m = 1:iter
     z = zeros(3,1);
     H = zeros(3,3);
     g = zeros(3,1);
-    %¼ÆËãÎó²îÏî
+    %è®¡ç®—è¯¯å·®é¡¹
     for k = 1: size(x,2)
         J = skew(R*x(:,k));
         z = y(:,k) - R*x(:,k);
         H =  H+J'*J;
         g = g+J'*z;
     end
-    %Çó½â·½³Ì
+    %æ±‚è§£æ–¹ç¨‹
     delta_theta = -inv(H)*g;
     the = norm(delta_theta,2);
     n = delta_theta./the;
-    %²ÎÊı¸üĞÂ
+    %å‚æ•°æ›´æ–°
     R = R*(cos(the)*eye(3)+(1-cos(the))*n*n'+sin(the)*skew(n));
     %svd
     [U,D,V] = svd(R);
     R = U*V';
-    %¼ÆËãÎó²î
+    %è®¡ç®—è¯¯å·®
     error(m) = target(R,x,y);
 end
 error = min(error);

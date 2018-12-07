@@ -175,3 +175,6 @@ Image_HW3/YALE/matlab/support_faces.m
 Image_HW3/YALE/matlab/unpad_faces.m
 *.png
 *.rar
+*.aux
+*.tex
+*.log
