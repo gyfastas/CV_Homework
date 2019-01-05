@@ -20,6 +20,7 @@ function [R,t]= solveTransform(X,Y,method)
         t = ycenter - R*xcenter;
     elseif method ==3
         [Q,error] = QDLT(NX,NY);
+        R = q2r(Q);
         t = ycenter-q2r(Q)*xcenter;
     end
 end

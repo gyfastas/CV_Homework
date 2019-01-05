@@ -8,7 +8,7 @@ R_m = R_m.R;
 q = r2q(R_m)+rand(1)*1;
 q = q./norm(q,2);
 error = zeros(1,10000);
-error(1) = target(q2r(q),x,y);
+error(1) = target(q2r(q),x,y);	
 for m = 1:5000
     %% 将四元数转换为旋转矩阵
     R = q2r(q);

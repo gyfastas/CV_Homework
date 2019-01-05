@@ -34,6 +34,10 @@ Output: Skew Matrix(3 * 3)
 
 
 
+-TPGenerate.m : A MATLAB Function that generate my test point clouds
+
+
+
 -target.m : A MATLAB Function that calculate the sum of square error
 
 Input: Rotation Matrix R (3 * 3)
@@ -174,7 +178,9 @@ X = X + random('Normal',0,0.01,dimension,pointNumX)
 
 
 
+TestMineCloud.m: 
 
+Just run and watch, thanks :)
 
 
 
