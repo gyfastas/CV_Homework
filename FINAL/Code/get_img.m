@@ -4,8 +4,11 @@ path  = input(prompt,'s');
 if isempty(path)
     path = 'input_img';
 end
-prompt0 = 'Please input the basename of your image: ';
+prompt0 = 'Please input the basename of your image: ([] = re) ';
 basename = input(prompt0,'s');
+if isempty(basename)
+    basename = 're';
+end
 prompt1 = 'Please input the format fo your image ([]=j=jpg, t=tif, p=png): ';
 format = input(prompt1,'s');
 if isempty(format)
